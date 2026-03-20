@@ -18,6 +18,7 @@ ch\wiss\m223_starter\repository\CommentRepository.class
 ch\wiss\m223_starter\model\Post$PostBuilder.class
 ch\wiss\m223_starter\controller\AuthController.class
 ch\wiss\m223_starter\model\Comment.class
+ch\wiss\m223_starter\controller\SearchController.class
 ch\wiss\m223_starter\repository\UserRepository.class
 ch\wiss\m223_starter\security\AuthTokenFilter.class
 ch\wiss\m223_starter\security\UserDetailsImpl.class
@@ -27,6 +28,7 @@ ch\wiss\m223_starter\dto\MessageResponse.class
 ch\wiss\m223_starter\model\ERole.class
 ch\wiss\m223_starter\model\Comment$CommentBuilder.class
 ch\wiss\m223_starter\repository\RoleRepository.class
+ch\wiss\m223_starter\controller\AdminController.class
 ch\wiss\m223_starter\security\UserDetailsServiceImpl.class
 ch\wiss\m223_starter\dto\SignupRequest$SignupRequestBuilder.class
 ch\wiss\m223_starter\security\JwtUtils.class

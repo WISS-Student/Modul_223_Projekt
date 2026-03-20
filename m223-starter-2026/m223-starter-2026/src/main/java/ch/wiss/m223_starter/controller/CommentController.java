@@ -33,21 +33,21 @@ public class CommentController {
     }
     
     @PostMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Comment> createComment(@RequestBody CommentRequest request) {
         Comment comment = commentService.createComment(request.getPostId(), request.getContent());
         return ResponseEntity.ok(comment);
     }
     
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Comment> updateComment(@PathVariable Long id, @RequestBody CommentRequest request) {
         Comment comment = commentService.updateComment(id, request.getContent());
         return ResponseEntity.ok(comment);
     }
     
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
         commentService.deleteComment(id);
         return ResponseEntity.noContent().build();

@@ -1,10 +1,12 @@
 package ch.wiss.m223_starter.controller;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
-import java.io.IOException;
+import java.util.stream.Collectors;
 
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.wiss.m223_starter.dto.JwtResponse;
 import ch.wiss.m223_starter.dto.LoginRequest;
 import ch.wiss.m223_starter.dto.MessageResponse;
 import ch.wiss.m223_starter.dto.SignupRequest;
@@ -27,19 +30,14 @@ import ch.wiss.m223_starter.model.User;
 import ch.wiss.m223_starter.repository.RoleRepository;
 import ch.wiss.m223_starter.repository.UserRepository;
 import ch.wiss.m223_starter.security.JwtUtils;
-import ch.wiss.m223_starter.dto.JwtResponse;
 import ch.wiss.m223_starter.security.UserDetailsImpl;
 import jakarta.validation.Valid;
-
-import java.util.List;
-import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
+
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
     @Autowired
     AuthenticationManager authenticationManager;
@@ -86,26 +84,26 @@ public class AuthController {
             return ResponseEntity.badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-        User user = new User(request.getUsername(),
-                encoder.encode(request.getPassword()), request.getEmail());
+        User user = new User(request.getUsername(), request.getEmail(),
+                encoder.encode(request.getPassword()));
+
         Set<String> strRoles = request.getRoles();
         Set<Role> roles = new HashSet<>();
+
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role not found."));
             roles.add(userRole);
         } else {
             strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role not found."));
-                        roles.add(adminRole);
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role not found."));
-                        roles.add(userRole);
+                if ("admin".equalsIgnoreCase(role)) {
+                    Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role not found."));
+                    roles.add(adminRole);
+                } else {
+                    Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role not found."));
+                    roles.add(userRole);
                 }
             });
         }

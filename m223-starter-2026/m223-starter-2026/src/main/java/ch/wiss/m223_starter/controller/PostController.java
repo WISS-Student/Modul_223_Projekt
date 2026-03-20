@@ -24,43 +24,43 @@ import ch.wiss.m223_starter.service.PostService;
 @RequestMapping("/api/posts")
 @CrossOrigin(origins = "*")
 public class PostController {
-    
+
     @Autowired
     private PostService postService;
-    
+
     @GetMapping
     public ResponseEntity<List<Post>> getAllPosts() {
         return ResponseEntity.ok(postService.getAllPosts());
     }
-    
+
     @GetMapping("/{id}")
     public ResponseEntity<Post> getPostById(@PathVariable Long id) {
         return postService.getPostById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
-    
+
     @PostMapping
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Post> createPost(@RequestBody PostRequest request) {
         Post post = postService.createPost(request.getTitle(), request.getContent(), request.getImageUrl());
         return ResponseEntity.ok(post);
     }
-    
+
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("@postService.getPostById(#id).get().getUser().getUsername() == authentication.name")
     public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody PostRequest request) {
         Post post = postService.updatePost(id, request.getTitle(), request.getContent(), request.getImageUrl());
         return ResponseEntity.ok(post);
     }
-    
+
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('MODERATOR')")
+    @PreAuthorize("hasRole('ADMIN') or @postService.getPostById(#id).get().getUser().getUsername() == authentication.name")
     public ResponseEntity<Void> deletePost(@PathVariable Long id) {
         postService.deletePost(id);
         return ResponseEntity.noContent().build();
     }
-    
+
     @GetMapping("/search")
     public ResponseEntity<List<Post>> searchPosts(@RequestParam String keyword) {
         return ResponseEntity.ok(postService.searchPosts(keyword));

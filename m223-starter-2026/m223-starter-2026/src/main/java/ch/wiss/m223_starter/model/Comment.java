@@ -2,6 +2,8 @@ package ch.wiss.m223_starter.model;
 
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -28,35 +30,36 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class Comment {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
     @NotBlank
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;
-    
+
     @Column(nullable = false)
     private LocalDateTime createdAt;
-    
+
     @Column(nullable = false)
     private LocalDateTime updatedAt;
-    
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id", nullable = false)
+    @JsonBackReference
     private Post post;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
         updatedAt = LocalDateTime.now();
     }
-    
+
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();

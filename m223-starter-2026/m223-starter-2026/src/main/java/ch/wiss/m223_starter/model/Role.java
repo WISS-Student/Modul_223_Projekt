@@ -28,7 +28,7 @@ public class Role {
         this.name = name;
     }
 
-    public String toString() {
-        return name.toString();
-    }
+public String toString() {
+    return name.name();
+}
 }

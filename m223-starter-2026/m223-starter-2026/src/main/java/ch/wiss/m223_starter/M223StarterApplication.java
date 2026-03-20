@@ -37,7 +37,6 @@ public class M223StarterApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		if (roleRepository.count() == 0) { // rollen erstellen, wenn noch nicht vorhanden
 			roleRepository.save(new Role(ERole.ROLE_USER));
-			roleRepository.save(new Role(ERole.ROLE_MODERATOR));
 			roleRepository.save(new Role(ERole.ROLE_ADMIN));			
 		}
 	}
