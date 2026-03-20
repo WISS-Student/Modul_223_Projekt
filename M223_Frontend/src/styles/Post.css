@@ -1,0 +1,204 @@
+/* Global Container Spacing */
+.post-list-container, 
+.post-detail-container, 
+.create-post-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.post-list-container h1,
+.post-detail-container h1,
+.create-post-container h1 {
+  font-size: 1.8rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  color: #222;
+}
+
+/*  Main Card Style */
+.post-card, 
+.form-card {
+  background: #ffffff;
+  border: 1px solid #eef0f2;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(109, 93, 252, 0.1);
+  border-color: rgba(109, 93, 252, 0.4);
+}
+
+/* Post Content Typography */
+.post-header h2 {
+  font-size: 1.3rem;
+  margin: 0 0 8px 0;
+  color: #6d5dfc;
+  font-weight: 700;
+}
+
+.post-meta {
+  font-size: 0.85rem;
+  color: #888;
+  margin-bottom: 12px;
+}
+
+.post-content {
+  color: #333;
+  line-height: 1.6;
+  font-size: 1rem;
+  overflow: hidden;
+}
+
+.post-image {
+  max-width: 100%;
+  max-height: 500px;
+  height: auto;
+  display: block;
+  margin: 16px auto;
+  border-radius: 12px;
+  object-fit: contain;
+  border: 1px solid #eef0f2;
+}
+
+/* Form Styling */
+.form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.form-group input, 
+.form-group textarea,
+.comment-form textarea { 
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s;
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+  background: #fff;
+}
+
+.form-group input:focus, 
+.form-group textarea:focus {
+  border-color: #6d5dfc;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(109, 93, 252, 0.1);
+}
+
+.btn-publish {
+  background: #6d5dfc;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-publish:hover {
+  background: #5b4ce3;
+}
+
+/* Comments Section */
+.comments-section {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 2px solid #f8f9fa;
+}
+
+.comment-card {
+  background: #fcfcfd;
+  border: 1px solid #f0f2f5;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 12px;
+  margin-left: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.comment-meta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #888;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-link:hover { color: #6d5dfc; }
+
+.btn-secondary {
+  background: #f1f3f5;
+  color: #444;
+  margin-top: 0;
+}
+
+.btn-secondary:hover { 
+  background: #e9ecef; 
+}
+
+.comment-form {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.admin-actions {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eef0f2;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.admin-actions button, 
+.btn-secondary, 
+.btn-delete {
+  padding: 10px 20px; 
+  border-radius: 8px;  
+  font-size: 0.9rem; 
+  font-weight: 700; 
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  line-height: 1.2;    
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-delete {
+  background: #ff4d4f;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #d9363e;
+}
