@@ -20,6 +20,8 @@ public class M223StarterApplication implements CommandLineRunner{
 	private RoleRepository roleRepository;
 	
 	public static void main(String[] args) {
+		String mysqlDb = System.getenv("MYSQL_HOST");
+		System.out.print("HOST" + mysqlDb);
 		SpringApplication.run(M223StarterApplication.class, args);
 	}
 

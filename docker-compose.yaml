@@ -1,0 +1,35 @@
+services:
+  mysql-db: 
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: m223-demo
+      MYSQL_USER: user
+      MYSQL_PASSWORD: example
+    volumes:
+      - demo-data:/var/lib/mysql
+
+  frontend:
+    image: frontend:1.0
+    build:
+      context: ./M223_Frontend/
+      args:
+        VITE_API_URL: http://backend:8080/api
+    depends_on:
+      - backend
+    ports:
+      - "5173:80"
+
+  backend:
+    image: backend:1.0
+    build:
+      context: ./m223-starter-2026/m223-starter-2026
+    depends_on:
+      - mysql-db
+    environment:
+      MYSQL_HOST: mysql-db
+    ports:
+      - "8080:8080"
+
+volumes:
+  demo-data:
