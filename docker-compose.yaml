@@ -1,5 +1,5 @@
 services:
-  mysql-db: 
+  mysqldb:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: example
@@ -25,9 +25,9 @@ services:
     build:
       context: ./m223-starter-2026/m223-starter-2026
     depends_on:
-      - mysql-db
+      - mysqldb
     environment:
-      MYSQL_HOST: mysql-db
+      MYSQL_HOST: mysqldb
     ports:
       - "8080:8080"
 
